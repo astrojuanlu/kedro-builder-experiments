@@ -1,0 +1,233 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 47 100% 50%;
+    --primary-foreground: 0 0% 0%;
+
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 70%;
+
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 0 0% 80%;
+    
+    --sidebar-background: 0 0% 10%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 47 100% 50%;
+    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 0% 15%;
+    --sidebar-ring: 47 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-kedro-black text-kedro-white;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* React Flow custom styles */
+  .react-flow__node {
+    padding: 0;
+    border-radius: 0;
+  }
+  
+  .react-flow__handle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #FFFFFF;
+    border: 2px solid #FFFFFF;
+  }
+  
+  .react-flow__edge-path {
+    stroke-width: 2;
+    stroke: #AAAAAA;
+  }
+
+  .react-flow__node.selected .kedro-dataset-node {
+    box-shadow: 0 0 0 2px rgba(255, 201, 0, 0.8);
+  }
+  
+  .react-flow__node.selected .kedro-function-node {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.8);
+  }
+  
+  .kedro-dataset-node {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .kedro-function-node {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .kedro-node-label {
+    font-weight: 500;
+  }
+
+  /* Edge animations */
+  .react-flow__edge-path {
+    stroke-dasharray: 5;
+    animation: dashdraw 1s linear infinite;
+  }
+
+  @keyframes dashdraw {
+    from {
+      stroke-dashoffset: 10;
+    }
+  }
+
+  /* Controls styling */
+  .react-flow__controls-button {
+    background: #202020;
+    border-color: #333333;
+    color: #000000;
+  }
+
+  .react-flow__controls-button:hover {
+    background: #333333;
+  }
+  
+  /* Make sure control button icons are black */
+  .react-flow__controls-button svg {
+    fill: #000000;
+    color: #000000;
+  }
+  
+  /* Custom class for black controls */
+  .react-flow-controls-black .react-flow__controls-button svg {
+    fill: #000000;
+    color: #000000;
+    stroke: #000000;
+  }
+  
+  /* Force SVG elements in controls to be black */
+  .react-flow__controls svg,
+  .react-flow__controls path,
+  .react-flow__controls line,
+  .react-flow__controls circle,
+  .react-flow__controls rect {
+    stroke: #000000 !important;
+    fill: #000000 !important;
+  }
+
+  /* Ensure minimap has black controls */
+  .react-flow__minimap-mask {
+    fill: rgba(0, 0, 0, 0.1);
+  }
+  
+  .react-flow__minimap {
+    background-color: #202020 !important;
+  }
+
+  /* Draggable panel elements */
+  .drag-element {
+    @apply cursor-move transition-all duration-150;
+  }
+  
+  .drag-element:hover {
+    @apply transform scale-105;
+  }
+  
+  /* Kedro Project Progress styles */
+  .kedro-progress-card {
+    background-color: #202020;
+    border-color: #333333;
+    color: white;
+  }
+  
+  .kedro-progress-title {
+    color: white;
+    font-weight: 600;
+  }
+  
+  .kedro-progress-description {
+    color: #cccccc;
+  }
+  
+  .kedro-progress-bar {
+    height: 0.5rem;
+    background-color: #333333;
+    border-radius: 0.25rem;
+  }
+  
+  .kedro-progress-indicator {
+    background-color: #FFC900;
+  }
+  
+  .kedro-progress-step {
+    color: white;
+  }
+}
