@@ -166,10 +166,12 @@ const PipelineBuilder = ({ projectDetails }: PipelineBuilderProps) => {
   const nodesEdgesToDot = (nodes, edges) => {
     let dot = 'digraph pipeline {\n';
     nodes.forEach(node => {
-      dot += `  "${node.id}" [label="${node.data?.label || node.id}"]\n`;
+      // Add type attribute for metadata
+      const nodeType = node.type === 'dataset' ? 'data' : 'task';
+      dot += `  "${node.id}" [label="${node.data?.label || node.id}", type="${nodeType}"];\n`;
     });
     edges.forEach(edge => {
-      dot += `  "${edge.source}" -> "${edge.target}"\n`;
+      dot += `  "${edge.source}" -> "${edge.target}";\n`;
     });
     dot += '}\n';
     return dot;
