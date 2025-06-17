@@ -162,6 +162,31 @@ const PipelineBuilder = ({ projectDetails }: PipelineBuilderProps) => {
     setIsGenerating(false);
   };
 
+  // Utility to convert nodes and edges to Graphviz DOT format
+  const nodesEdgesToDot = (nodes, edges) => {
+    let dot = 'digraph pipeline {\n';
+    nodes.forEach(node => {
+      dot += `  "${node.id}" [label="${node.data?.label || node.id}"]\n`;
+    });
+    edges.forEach(edge => {
+      dot += `  "${edge.source}" -> "${edge.target}"\n`;
+    });
+    dot += '}\n';
+    return dot;
+  };
+
+  const downloadDotFile = (dotString, filename = 'pipeline.gv') => {
+    const blob = new Blob([dotString], { type: 'text/vnd.graphviz' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="flex h-screen bg-kedro-black">
       <Sidebar />
@@ -175,10 +200,14 @@ const PipelineBuilder = ({ projectDetails }: PipelineBuilderProps) => {
             <Button 
               variant="outline" 
               className="border-kedro-white text-black hover:bg-kedro-darkgrey"
-              onClick={() => {}}
+              onClick={() => {
+                const dot = nodesEdgesToDot(nodes, edges);
+                const safeName = projectDetails.name.replace(/[^a-zA-Z0-9-_]/g, '_') || 'pipeline';
+                downloadDotFile(dot, `${safeName}.gv`);
+              }}
             >
               <Save className="w-4 h-4 mr-2 text-black" />
-              Save
+              Save to DOT
             </Button>
             <Button 
               className="bg-kedro-yellow text-kedro-black hover:bg-amber-500"
